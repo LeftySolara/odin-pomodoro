@@ -28,14 +28,30 @@ function startTimer(timer) {
         updateTimeDisplay(timer.secondsRemaining);
 
         if (timer.secondsRemaining === 0) {
-            pauseTimer(timer);
-            alert("Timer has finished");
+            finishTimer(timer);
         }
     }, 1000);
 }
 
 function pauseTimer(timer) {
     window.clearInterval(timer.intervalID);
+}
+
+function finishTimer(timer) {
+    pauseTimer(timer);
+    if (timer.currentTimerType === timer.timerType.POMODORO) {
+        let pomodoroCount = document.querySelector("#pomodoroCount");
+        pomodoroCount.innerHTML = "Pomodoros: " + (++timer.pomodoroCount);
+    }
+    else if (timer.currentTimerType === timer.timerType.SHORTREST) {
+        let shortRestCount = document.querySelector("#shortRestCount");
+        shortRestCount.innerHTML = "Short Rests: " + (++timer.shortRestCount);
+    }
+    else if (timer.currentTimerType === timer.timerType.LONGREST) {
+        let longRestCount = document.querySelector("#longRestCount");
+        longRestCount.innerHTML = "Long Rests: " + (++timer.longRestCount);
+    }
+    alert("Timer has finished.");
 }
 
 function setTimer(timer, timerType) {
@@ -83,7 +99,7 @@ function setupPage(timer) {
                 LENGTH: 1500
             },
             SHORTREST: {
-                LENGTH: 3
+                LENGTH: 300
             },
             LONGREST: {
                 LENGTH: 900
