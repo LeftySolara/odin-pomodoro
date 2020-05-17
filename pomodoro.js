@@ -40,12 +40,12 @@ function pauseTimer(timer) {
 
 function setTimer(timer, timerType) {
     pauseTimer(timer);
-    timer.timerType = timerType;
+    timer.currentTimerType = timerType;
     timer.secondsRemaining = timerType.LENGTH;
     updateTimeDisplay(timer.secondsRemaining);
 }
 
-function setupPage(timer, timerType) {
+function setupPage(timer) {
     let startButton = document.querySelector("#startButton");
     let pauseButton = document.querySelector("#pauseButton");
     let pomodoroButton = document.querySelector("#pomodoroButton");
@@ -61,43 +61,41 @@ function setupPage(timer, timerType) {
     });
 
     pomodoroButton.addEventListener("click", () => {
-        setTimer(timer, timerType.POMODORO);
+        setTimer(timer, timer.timerType.POMODORO);
     });
 
     shortRestButton.addEventListener("click", () => {
-        setTimer(timer, timerType.SHORTREST);
+        setTimer(timer, timer.timerType.SHORTREST);
     });
 
     longRestButton.addEventListener("click", () => {
-        setTimer(timer, timerType.LONGREST);
+        setTimer(timer, timer.timerType.LONGREST);
     });
 
-    setTimer(timer, timerType.POMODORO);
+    setTimer(timer, timer.timerType.POMODORO);
     updateTimeDisplay(timer.secondsRemaining);
 }
 
 (function() {
-    const timerType = {
-        POMODORO: {
-            LENGTH: 1500
-        },
-        SHORTREST: {
-            LENGTH: 300
-        },
-        LONGREST: {
-            LENGTH: 900
-        }
-    };
-    Object.freeze(timerType);
-
     let timer = {
+        timerType: {
+            POMODORO: {
+                LENGTH: 1500
+            },
+            SHORTREST: {
+                LENGTH: 3
+            },
+            LONGREST: {
+                LENGTH: 900
+            }
+        },
         secondsRemaining: 0,
         pomodoroCount: 0,
         shortRestCount: 0,
         longRestCount: 0,
-        currentTimerType: timerType.POMODORO,
+        currentTimerType: null,
         intervalID: -1
     };
 
-    setupPage(timer, timerType);
+    setupPage(timer);
 })();
