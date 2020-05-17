@@ -20,19 +20,17 @@ function updateTimeDisplay(seconds) {
 
 function tick(timer) {
     --timer.secondsRemaining;
-    if (timer.secondsRemaining === 0) {
-        // Manually update the display so the timer doesn't display 00:01
-        // while the alert is up.
-        updateTimeDisplay(0);
-        alert("Timer has finished");
-        pauseTimer(timer);
-    }
 }
 
 function startTimer(timer) {
     timer.intervalID = window.setInterval(() => {
         tick(timer);
         updateTimeDisplay(timer.secondsRemaining);
+
+        if (timer.secondsRemaining === 0) {
+            pauseTimer(timer);
+            alert("Timer has finished");
+        }
     }, 1000);
 }
 
