@@ -33,9 +33,18 @@ function pauseTimer(timer) {
     window.clearInterval(timer.intervalID);
 }
 
+function setTimer(timer, seconds) {
+    pauseTimer(timer);
+    timer.secondsRemaining = seconds;
+    updateTimeDisplay(timer.secondsRemaining);
+}
+
 function setupPage(timer) {
     let startButton = document.querySelector("#startButton");
     let pauseButton = document.querySelector("#pauseButton");
+    let pomodoroButton = document.querySelector("#pomodoroButton");
+    let shortRestButton = document.querySelector("#shortRestButton");
+    let longRestButton = document.querySelector("#longRestButton");
 
     startButton.addEventListener("click", () => {
         startTimer(timer);
@@ -45,12 +54,25 @@ function setupPage(timer) {
         pauseTimer(timer);
     });
 
+    pomodoroButton.addEventListener("click", () => {
+        setTimer(timer, 1500);
+    });
+
+    shortRestButton.addEventListener("click", () => {
+        setTimer(timer, 300);
+    });
+
+    longRestButton.addEventListener("click", () => {
+        setTimer(timer, 900);
+    });
+
+    setTimer(timer, 1500);
     updateTimeDisplay(timer.secondsRemaining);
 }
 
 (function() {
     let timer = {
-        secondsRemaining: 1500,
+        secondsRemaining: 0,
         pomodoroCount: 0,
         shortRestCount: 0,
         longRestCount: 0,
