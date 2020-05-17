@@ -38,13 +38,14 @@ function pauseTimer(timer) {
     window.clearInterval(timer.intervalID);
 }
 
-function setTimer(timer, seconds) {
+function setTimer(timer, timerType) {
     pauseTimer(timer);
-    timer.secondsRemaining = seconds;
+    timer.timerType = timerType;
+    timer.secondsRemaining = timerType.LENGTH;
     updateTimeDisplay(timer.secondsRemaining);
 }
 
-function setupPage(timer) {
+function setupPage(timer, timerType) {
     let startButton = document.querySelector("#startButton");
     let pauseButton = document.querySelector("#pauseButton");
     let pomodoroButton = document.querySelector("#pomodoroButton");
@@ -60,29 +61,43 @@ function setupPage(timer) {
     });
 
     pomodoroButton.addEventListener("click", () => {
-        setTimer(timer, 1500);
+        setTimer(timer, timerType.POMODORO);
     });
 
     shortRestButton.addEventListener("click", () => {
-        setTimer(timer, 300);
+        setTimer(timer, timerType.SHORTREST);
     });
 
     longRestButton.addEventListener("click", () => {
-        setTimer(timer, 900);
+        setTimer(timer, timerType.LONGREST);
     });
 
-    setTimer(timer, 1500);
+    setTimer(timer, timerType.POMODORO);
     updateTimeDisplay(timer.secondsRemaining);
 }
 
 (function() {
+    const timerType = {
+        POMODORO: {
+            LENGTH: 1500
+        },
+        SHORTREST: {
+            LENGTH: 300
+        },
+        LONGREST: {
+            LENGTH: 900
+        }
+    };
+    Object.freeze(timerType);
+
     let timer = {
         secondsRemaining: 0,
         pomodoroCount: 0,
         shortRestCount: 0,
         longRestCount: 0,
+        currentTimerType: timerType.POMODORO,
         intervalID: -1
     };
 
-    setupPage(timer);
+    setupPage(timer, timerType);
 })();
