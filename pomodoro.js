@@ -18,13 +18,44 @@ function updateTimeDisplay(seconds) {
     timeDisplay.innerHTML = formatSeconds(seconds);
 }
 
+function tick(timer) {
+    --timer.secondsRemaining;
+}
+
+function startTimer(timer) {
+    timer.intervalID = window.setInterval(() => {
+        tick(timer);
+        updateTimeDisplay(timer.secondsRemaining);
+    }, 1000);
+}
+
+function pauseTimer(timer) {
+    window.clearInterval(timer.intervalID);
+}
+
+function setupPage(timer) {
+    let startButton = document.querySelector("#startButton");
+    let pauseButton = document.querySelector("#pauseButton");
+
+    startButton.addEventListener("click", () => {
+        startTimer(timer);
+    });
+
+    pauseButton.addEventListener("click", () => {
+        pauseTimer(timer);
+    });
+
+    updateTimeDisplay(timer.secondsRemaining);
+}
+
 (function() {
     let timer = {
         secondsRemaining: 1500,
         pomodoroCount: 0,
         shortRestCount: 0,
-        longRestCount: 0
+        longRestCount: 0,
+        intervalID: -1
     };
 
-    updateTimeDisplay(timer.secondsRemaining);
+    setupPage(timer);
 })();

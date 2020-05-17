@@ -42,3 +42,7 @@ a {
     font-weight: bold;
     text-align: center;
 }
+
+#timeDisplay {
+    margin: 50px 0px 0px 0px;
+}
