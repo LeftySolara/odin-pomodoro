@@ -4,6 +4,7 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    color: #2d2d2d;
 }
 
 header {
@@ -12,7 +13,6 @@ header {
     font-family: "Fira Sans", sans-serif;
     font-size: 15px;
     text-align: center;
-    color: #2d2d2d;
     background-color: #99cc99;
     border: 1px solid #d3d0c8;
     margin: 0;
@@ -34,4 +34,11 @@ a {
     font-size: 2em;
     text-decoration: none;
     color: #515151;
+}
+
+#timer {
+    font-family: "Roboto", sans-serif;
+    font-size: 7em;
+    font-weight: bold;
+    text-align: center;
 }
