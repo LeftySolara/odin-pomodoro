@@ -1,33 +1,30 @@
-class Timer {
-    constructor() {
-        this.secondsRemaining = 1500;
-        this.pomodoroCount = 0;
-        this.shortRestCount = 0;
-        this.longRestCount = 0;
+// Format the given number of seconds to mm:ss format
+function formatSeconds(totalSeconds) {
+    let minutes = Math.trunc(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+        seconds = "0" + seconds;
     }
 
-    // Formats the remaining number of seconds to mm:ss format
-    formatRemainingTime() {
-        let minutes = Math.trunc(this.secondsRemaining / 60);
-        let seconds = this.secondsRemaining % 60;
-
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-
-        return minutes + ":" + seconds;
-    }
+    return minutes + ":" + seconds;
 }
 
-function updateTimeDisplay(timer) {
+function updateTimeDisplay(seconds) {
     let timeDisplay = document.querySelector("#timeDisplay");
-    timeDisplay.innerHTML = timer.formatRemainingTime();
+    timeDisplay.innerHTML = formatSeconds(seconds);
 }
 
 (function() {
-    let timer = new Timer();
-    updateTimeDisplay(timer);
+    let timer = {
+        secondsRemaining: 1500,
+        pomodoroCount: 0,
+        shortRestCount: 0,
+        longRestCount: 0
+    };
+
+    updateTimeDisplay(timer.secondsRemaining);
 })();
