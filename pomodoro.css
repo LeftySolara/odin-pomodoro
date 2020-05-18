@@ -37,6 +37,15 @@ a {
     color: #515151;
 }
 
+button {
+    font-family: "Fira Sans", sans-serif;
+    font-size: 24px;
+    color: #2d2d2d;
+    background-color: #99cc99;
+    border: 5px solid #99cc99;
+    border-radius: 15px;
+}
+
 #timer {
     font-family: "Roboto", sans-serif;
     font-size: 7em;
